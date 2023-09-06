@@ -14,7 +14,7 @@ variable "location" {
 variable "resource_group_name" {
   type = string
   description = "This variable defines the Resource Group"
-  default = "AKS-Forge-Niaz"
+  default = "AKS-Forge-Capstone"
 }
 
 # Azure AKS Environment Name
