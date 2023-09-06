@@ -9,7 +9,7 @@ variables:
   QA_ENVIRONMENT:  qa 
   dockerfilePath: $(System.DefaultWorkingDirectory)kube-manifests\03-Windows-DotNet-Apps/
   tag: $(Build.BuildId)
-  dockerRegistryServiceConnection: AKSForgeContainerRegistry
+  dockerRegistryServiceConnection: aksforgecontainerregistry.azurecr.io
   imageRepository: AKSRepo
 
 
