@@ -7,10 +7,7 @@ pool:
 variables:
   DEV_ENVIRONMENT: dev
   QA_ENVIRONMENT:  qa 
-  dockerfilePath: $(System.DefaultWorkingDirectory)kube-manifests\03-Windows-DotNet-Apps/
-  tag: $(Build.BuildId)
-  dockerRegistryServiceConnection: terraform-aks-azurerm-svc-con
-  imageRepository: AKSRepo
+
 
 
 
@@ -169,12 +166,9 @@ stages:
     - task: DockerInstaller@0
       inputs:
         dockerVersion: '17.09.0-ce'
-    - task: Docker@2
-      displayName: Build and publish image to Azure Container Registry
+
+    - task: PublishPipelineArtifact@1
       inputs:
-        command: 'buildAndPush'
-        containerRegistry: '$(dockerRegistryServiceConnection)'
-        repository: $(imageRepository)
-        Dockerfile: $(dockerfilePath)
-        tags: |
-          $(tag)
+        targetPath: '$(System.DefaultWorkingDirectory)/kube-manifests/01-Webserver-Apps'
+        artifact: 'Kube-manifests-out'
+        publishLocation: 'pipeline'
