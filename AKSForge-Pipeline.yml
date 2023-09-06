@@ -160,7 +160,7 @@ stages:
   - job: Build
     displayName: Build job
     pool:
-      name: Default
+      vmImage: 'ubuntu-latest'
     steps:
     - task: DockerInstaller@0
       inputs:
