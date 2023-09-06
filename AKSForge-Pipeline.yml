@@ -9,7 +9,7 @@ variables:
   QA_ENVIRONMENT:  qa 
   dockerfilePath: $(System.DefaultWorkingDirectory)kube-manifests\03-Windows-DotNet-Apps/
   tag: $(Build.BuildId)
-  dockerRegistryServiceConnection: AKSForgeSelfHostedAgentConn
+  dockerRegistryServiceConnection: AKSForgeContainerRegistry
   imageRepository: AKSRepo
 
 
@@ -170,11 +170,26 @@ stages:
       inputs:
         dockerVersion: '17.09.0-ce'
     - task: Docker@2
-      displayName: Build and publish image to Azure Container Registry
+      displayName: 'Build Docker Image'
       inputs:
-        command: 'buildAndPush'
-        containerRegistry: '$(dockerRegistryServiceConnection)'
-        repository: $(imageRepository)
-        Dockerfile: $(dockerfilePath)
-        tags: |
-          $(tag)
+            command: 'build'
+            repository: $(dockerRegistryServiceConnection)/$(imageRepository)
+            Dockerfile: $(dockerfilePath)
+            tags: |
+              $(tag)
+
+        # Log in to Azure Container Registry
+    - task: Docker@2
+      displayName: 'Log in to ACR'
+      inputs:
+            command: 'login'
+            containerRegistry: '$(dockerRegistryServiceConnection)'
+
+        # Push the Docker image to ACR
+    - task: Docker@2
+      displayName: 'Push Docker Image to ACR'
+      inputs:
+            command: 'push'
+            repository: $(dockerRegistryServiceConnection)/$(imageRepository)
+            tags: |
+              $(tag)
