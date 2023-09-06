@@ -42,12 +42,12 @@ stages:
             command: 'init'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests'
             backendType: 'azurerm'
-            backendServiceArm: 'terraform-aks-azurerm-svc-con'
-            backendAzureRmResourceGroupName: 'Capstonedemoniaz1'
-            backendAzureRmStorageAccountName: 'tstatestorageniaz'
-            backendAzureRmContainerName: 'tfstatefiles1'
-            backendAzureRmKey: 'aks-demo-one'
-            allowTelemetryCollection: false
+            # backendServiceArm: 'terraform-aks-azurerm-svc-con'
+            # backendAzureRmResourceGroupName: 'Capstonedemoniaz1'
+            # backendAzureRmStorageAccountName: 'tstatestorageniaz'
+            # backendAzureRmContainerName: 'tfstatefiles1'
+            # backendAzureRmKey: 'aks-demo-one'
+            # allowTelemetryCollection: false
        - task: TerraformCLI@0
          inputs:
             command: 'validate'
@@ -172,11 +172,11 @@ stages:
     - task: Docker@2
       displayName: 'Build Docker Image'
       inputs:
-            command: 'build'
-            repository: $(dockerRegistryServiceConnection)/$(imageRepository)
-            Dockerfile: $(dockerfilePath)
-            tags: |
-              $(tag)
+        containerRegistry: 'ACRffff'
+        repository: '$(dockerRegistryServiceConnection)/$(imageRepository)'
+        command: 'build'
+        Dockerfile: '$(dockerfilePath)'
+        tags: '$(tag)'
 
         # Log in to Azure Container Registry
     - task: Docker@2
