@@ -160,8 +160,6 @@ stages:
   - job: Build
     displayName: Build job
     steps:
-    - 
-    
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)/kube-manifests/'
