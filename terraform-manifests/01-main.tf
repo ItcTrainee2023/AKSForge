@@ -48,4 +48,3 @@ provider "azurerm" {
 resource "random_pet" "aksrandom" {
 
 }
-
