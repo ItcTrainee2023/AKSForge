@@ -14,7 +14,7 @@ variable "location" {
 variable "resource_group_name" {
   type = string
   description = "This variable defines the Resource Group"
-  default = "AKS-Forge-Capstone"
+  default = "AKS-Forge"
 }
 
 # Azure AKS Environment Name
@@ -46,4 +46,19 @@ variable "windows_admin_password" {
   default = "P@ssw0rd12346789"
   description = "This variable defines the Windows admin password k8s Worker nodes"  
 }
-
+# Namespace Names
+variable "dev_namespace" {
+  type        = string
+  description = "Name of the development namespace"
+  default     = "dev"
+}
+variable "qa_namespace" {
+  type        = string
+  description = "Name of the QA namespace"
+  default     = "qa"
+}
+variable "prod_namespace" {
+  type        = string
+  description = "Name of the production namespace"
+  default     = "prod"
+}

@@ -48,3 +48,21 @@ provider "azurerm" {
 resource "random_pet" "aksrandom" {
 
 }
+
+# Kubernetes Namespaces using variables from variables.tf
+resource "kubernetes_namespace" "dev" {
+  metadata {
+    name = var.dev_namespace
+  }
+}
+resource "kubernetes_namespace" "qa" {
+  metadata {
+    name = var.qa_namespace
+  }
+}
+resource "kubernetes_namespace" "prod" {
+  metadata {
+    name = var.prod_namespace
+  }
+}
+
